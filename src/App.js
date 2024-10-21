@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch, useNavigate, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext'
 
 // pages & components
@@ -10,7 +10,7 @@ import Navbar from './components/Navbar'
 function App() {
 
   const { authIsReady, user  } = useAuthContext()
-  const navigate = useNavigate()
+
 
   return (
     <div className="App">
@@ -18,15 +18,10 @@ function App() {
         <BrowserRouter>
           <Navbar />
           <Routes>
-            <Route exact path="/"
-            element={(!user && <Navigate to="/login" />) || (user && <Home />)}>
-            </Route>
-            <Route path="/login"
-            element={(user && <Navigate to="/" />) || (!user && <Login />) }>
-            </Route>
-            <Route path="/signup"
-            element={(user && <Navigate to="/" />) || (!user && <Signup />)}>
-            </Route>
+            <Route path="/" element={(!user && <Navigate to="/login" />) || (user && <Home />)} />
+            <Route path="/login" element={(user && <Navigate to="/" />) || (!user && <Login />) } />
+            <Route path="/signup" element={(user && <Navigate to="/" />) || (!user && <Signup />)} />
+ 
           </Routes>
         </BrowserRouter>
       )}
